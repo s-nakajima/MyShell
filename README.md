@@ -32,3 +32,12 @@ NC3 & Github issuesバックアップシェル
 ## [sakura (private)](https://github.com/s-nakajima/MyShell-sakura)
 Sakuraに環境構築および最新化するシェル
 
+----------
+
+## 環境構築（ただし、本人のみ）
+
+~~~~~
+cd /var/www/MyShell
+git clone https://github.com/s-nakajima/MyShell-config.git
+cp -pf MyShell-config/composer.json
+~~~~~
