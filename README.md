@@ -17,5 +17,5 @@ NC3スケルトンシェル
 
 UnitTestスケルトンシェル
 
-## [issueCheck (private)](https://github.com/s-nakajima/issueCheck)
+## [issueCheck (private)](https://github.com/s-nakajima/MyShell-issueCheck)
 NC3のISSUEを確認し、集計するシェル
