@@ -1,18 +1,13 @@
 {
     "name": "s-nakajima/shells",
     "description": "s-nakajima's shells",
-    "homepage": "http://researchmap.jp/",
     "authors": [
         {
             "name": "NaKaZii Co., Ltd.",
             "homepage": "https://github.com/s-nakajima"
         }
     ],
-    "repositories": [
-        {"type": "vcs", "url": "https://github.com/s-nakajima/issueCheck.git"}
-    ],
     "config": {
-        "vendor-dir": "..",
         "process-timeout": 3000
     },
     "minimum-stability": "dev"
