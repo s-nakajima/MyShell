@@ -19,3 +19,6 @@ UnitTestスケルトンシェル
 
 ## [issueCheck (private)](https://github.com/s-nakajima/MyShell-issueCheck)
 NC3のISSUEを確認し、集計するシェル
+
+## [scanInstall (private)](https://github.com/s-nakajima/MyShell-scanInstall)
+脆弱性チェック用のサイト構築
