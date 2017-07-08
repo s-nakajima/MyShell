@@ -28,3 +28,7 @@ NC3のISSUEを確認し、集計するシェル
 
 ## [nc3Backup](https://github.com/s-nakajima/MyShell-nc3Backup)
 NC3 & Github issuesバックアップシェル
+
+## [sakura (private)](https://github.com/s-nakajima/MyShell-sakura)
+Sakuraに環境構築および最新化するシェル
+
