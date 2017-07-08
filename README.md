@@ -1,4 +1,4 @@
-# MyShell
+# なかじの便利なツール(s-nakajima/MyShell)
 
 install 
 -------
