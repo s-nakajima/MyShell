@@ -32,6 +32,9 @@ NC3 & Github issuesバックアップシェル
 ## [sakura (private)](https://github.com/s-nakajima/MyShell-sakura)
 Sakuraに環境構築および最新化するシェル
 
+## [issueImport (private)](https://github.com/s-nakajima/MyShell-issueImport)
+GithubのIssueをリポジトリ移動するシェル
+
 ----------
 
 ## 環境構築（ただし、本人である私のみ）
