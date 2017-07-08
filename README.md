@@ -25,3 +25,6 @@ NC3のISSUEを確認し、集計するシェル
 
 ## [nc3Release (private)](https://github.com/s-nakajima/MyShell-nc3Release)
 リリースパッケージを作成するシェル
+
+## [nc3Backup](https://github.com/s-nakajima/MyShell-nc3Backup)
+NC3 & Github issuesバックアップシェル
