@@ -22,9 +22,12 @@ unitTest
 UnitTestスケルトンシェル
 
 
-ISSUEを集計するシェル
+issueCheck
 -------------------
+NC3のISSUEを確認し、集計するシェル
+
 ※詳しくは、[s-nakajima/issueCheck](https://github.com/s-nakajima/issueCheck)
+
 ~~~~
 cd /var/www/MyShell
 composer require s-nakajima/issue-check:@dev
