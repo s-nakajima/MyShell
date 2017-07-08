@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#vagrantのgitアカウントの設定
+USERNAME="`git config --global --list | grep user.name`"
+USERMAIL="`git config --global --list | grep user.email`"
+
+if [ "$USERNAME" = "" ] ; then
+	echo "github.comのアカウントを入力してください。"
+	echo -n "> "
+	read INPUT_USERNAME
+	if [ ! "$INPUT_USERNAME" = "" ] ; then
+		git config --global user.name "$INPUT_USERNAME"
+	fi
+fi
+
+if [ "$USERMAIL" = "" ] ; then
+	echo "github.comのメールアドレスを入力してください。"
+	echo -n "> "
+	read INPUT_USERMAIL
+	if [ ! "$INPUT_USERMAIL" = "" ] ; then
+		git config --global user.email "$INPUT_USERMAIL"
+	fi
+fi
+
+#cd /var/www/MyShell/install
+#sudo -s bash install.sh $1

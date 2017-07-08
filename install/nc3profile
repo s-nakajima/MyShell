@@ -1,0 +1,18 @@
+#
+#-----------------------------------------
+# Environment variable
+#-----------------------------------------
+#
+DBHOST=localhost; export DBHOST
+DBNAME=nc3; export DBNAME
+DBUSER=root; export DBUSER
+DBPASS=root; export DBPASS
+NC3URI=127.0.0.1; export NC3URI
+NC3PORT=9090; export NC3PORT
+NC3DIR=/var/www/app; export NC3DIR
+NC3UID=admin; export NC3UID
+NC3PASS=admin; export NC3PASS
+NC3HANDLE=admin; export NC3HANDLE
+
+SKIP_PLUGINS="BoostCake DebugKit empty Install HtmlPurifier M17n Migrations MobileDetect Sandbox"; export SKIP_PLUGINS
+GITURL=https://github.com/NetCommons3; export GITURL

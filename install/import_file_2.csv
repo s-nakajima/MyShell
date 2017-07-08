@@ -1,0 +1,5 @@
+User.username,User.password,User.handlename,UsersLanguageJa.name,UsersLanguageEn.name,User.email,User.moblie_mail,User.sex,User.timezone,User.role_key,User.status,UsersLanguageJa.profile,UsersLanguageEn.profile,UsersLanguageJa.search_keywords,UsersLanguageEn.search_keywords
+chief_editor,admin,編集長ユーザ,編集長ユーザ,編集長ユーザ,chief_editor@example.com,,no_setting,Asia/Tokyo,administrator,1,,,,
+editor,admin,編集者ユーザ,編集者ユーザ,編集者ユーザ,editor@example.com,,no_setting,Asia/Tokyo,common_user,1,,,,
+general_user,admin,一般ユーザ,一般ユーザ,一般ユーザ,general_user@example.com,,no_setting,Asia/Tokyo,common_user,1,,,,
+visitor,admin,参観者ユーザ,参観者ユーザ,参観者ユーザ,visitor@example.com,,no_setting,Asia/Tokyo,common_user,1,,,,

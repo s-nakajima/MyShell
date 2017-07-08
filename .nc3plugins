@@ -1,0 +1,157 @@
+#!/bin/bash
+#
+#-----------------------------------------
+# Environment variable
+#-----------------------------------------
+HOME_BATCH_LATEST=1612142330; export HOME_BATCH_LATEST
+NII_BATCH_LATEST=1612212330; export NII_BATCH_LATEST
+
+NC3GITURL=https://github.com/NetCommons3
+
+SKIP_PLUGINS=()
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "BoostCake")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "DebugKit")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "empty")
+#SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Install")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "HtmlPurifier")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Migrations")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "MobileDetect")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Purifiable")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Sandbox")
+SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Upload")
+#SKIP_PLUGINS=("${SKIP_PLUGINS[@]}" "Cabinets")
+
+#開発中プラグイン
+DEV_PLUGINS=()
+
+
+#開発中プラグイン(ローカルのみ)
+LOCALDEV_PLUGINS=()
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "AccessCounters https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Announcements https://github.com/s-nakajima measure170609")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Auth https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "AuthGeneral https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "AuthorizationKeys https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "AuthLdap https://github.com/s-nakajima develop")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Bbses https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Blocks https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Blogs https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Boxes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Cabinets https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Calendars https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Categories https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "CircularNotices https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Containers https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "ControlPanel https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "ContentComments https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "DataTypes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Faqs https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Files https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Frames https://github.com/s-nakajima measure170609")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Groups https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Holidays https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Iframes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Install https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Likes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Links https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "M17n https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Mails https://github.com/s-nakajima")
+LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Menus https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Multidatabases https://github.com/NetCommons3")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Multidatabases https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "NetCommons https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Notifications https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Pages https://github.com/s-nakajima measure170609") #3
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "PhotoAlbums https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "PluginManager https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "PrivateSpace https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "PublicSpace https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Questionnaires https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Quizzes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Registrations https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Reservations https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Roles https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "RoomSpace https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Rooms https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "RssReaders https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "SearchBoxes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Searches https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "SiteManager https://github.com/s-nakajima measure170609")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "SystemManager https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Tags https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Tasks https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "ThemeSettings https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Topics https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "UserAttributes https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "UserManager https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "UserRoles https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Users https://github.com/s-nakajima") #4
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Videos https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "VisualCaptcha https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Workflow https://github.com/s-nakajima")
+#LOCALDEV_PLUGINS=("${LOCALDEV_PLUGINS[@]}" "Wysiwyg https://github.com/s-nakajima develop")
+
+NC3PLUGINS=(); export NC3PLUGINS
+
+if [ "${NC3DIR}" = "" ]; then
+	exit 0
+fi
+cd ${NC3DIR}/app/Plugin
+
+plugins="`ls`"
+for plugin in ${plugins}
+do
+	#skipするプラグイン
+	for not in "${SKIP_PLUGINS[@]}"
+	do
+		if [ "${plugin}" = "${not}" ]; then
+			continue 2
+		fi
+	done
+	case "${plugin}" in
+		*.bk ) 
+			continue
+			;;
+	esac
+
+	#開発中(業者)プラグイン
+	if [ ! "${NORMALDEV}" = "3" ]; then
+		for dev0 in "${DEV_PLUGINS[@]}"
+		do
+			dev=(${dev0})
+			if [ "${plugin}" = "${dev}" ]; then
+				continue 2
+			fi
+		done
+	fi
+
+	#開発中プラグイン(中島開発)
+	if [ "${NORMALDEV}" = "0" -o "${NORMALDEV}" = "2" ]; then
+		for dev0 in "${LOCALDEV_PLUGINS[@]}"
+		do
+			dev=(${dev0})
+			if [ "${plugin}" = "${dev}" ]; then
+				continue 2
+			fi
+		done
+	fi
+
+	#NC3プラグイン
+	NC3PLUGINS=("${NC3PLUGINS[@]}" "${plugin} ${NC3GITURL}")
+done
+
+#開発中(業者)プラグイン
+if [ ! "${NORMALDEV}" = "3" ]; then
+	for dev in "${DEV_PLUGINS[@]}"
+	do
+		NC3PLUGINS=("${NC3PLUGINS[@]}" "${dev}")
+	done
+fi
+
+#開発中プラグイン(ローカルのみ)
+if [ "${NORMALDEV}" = "0" -o "${NORMALDEV}" = "2" ]; then
+	for dev in "${LOCALDEV_PLUGINS[@]}"
+	do
+		NC3PLUGINS=("${NC3PLUGINS[@]}" "${dev}")
+	done
+fi

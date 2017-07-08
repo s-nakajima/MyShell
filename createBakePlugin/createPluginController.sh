@@ -1,0 +1,145 @@
+#!/bin/bash
+
+##
+# Controllerファイルを作成
+##
+echo "cd ${SET_DIR}/app/Console/"
+cd ${SET_DIR}/app/Console/
+
+CAKE_BAKE="bake controller ${PLUGIN_NAME} -c master --plugin ${PLUGIN_NAME}"
+echo "./cake ${CAKE_BAKE}"
+./cake ${CAKE_BAKE}
+
+controllerFile=${PUGLIN_PATH}/Controller/${PLUGIN_NAME}Controller.php
+if [ ! -f $controllerFile ] ; then
+	if [ -f ${PUGLIN_PATH}/Controller/${PLUGIN_NAME}sController.php ] ; then
+		echo "cp -pf ${PUGLIN_PATH}/Controller/${PLUGIN_NAME}sController.php $controllerFile"
+		cp -pf ${PUGLIN_PATH}/Controller/${PLUGIN_NAME}sController.php $controllerFile
+		RMCONTROLLER="${PUGLIN_PATH}/Controller/${PLUGIN_NAME}sController.php"
+	fi
+fi
+
+appUsesValue=`grep "App::uses" ${controllerFile}`
+if [ "${RMCONTROLLER}" = "" ] ; then
+	classValue=`grep "class .* {" ${controllerFile}`
+else
+	classValue="class ${PLUGIN_NAME}Controller extends ${PLUGIN_NAME}AppController {"
+fi
+
+echo "create ${controllerFile}"
+cat << _EOF_ > $controllerFile
+<?php
+/**
+ * ${PLUGIN_NAME} Controller
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+${appUsesValue}
+
+/**
+ * ${PLUGIN_NAME} Controller
+ *
+ * @author ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
+ * @package ${PHPDOC_PROJECT}\\${PLUGIN_NAME}\\Controller
+ */
+${classValue}
+
+/**
+ * use model
+ *
+ * @var array
+ */
+	//public \$uses = array();
+
+/**
+ * use component
+ *
+ * @var array
+ */
+	//public \$components = array();
+
+/**
+ * index
+ *
+ * @return void
+ */
+	public function index() {
+	}
+
+/**
+ * view
+ *
+ * @return void
+ */
+	public function view() {
+	}
+
+/**
+ * add
+ *
+ * @return void
+ */
+	public function add() {
+	}
+
+/**
+ * edit
+ *
+ * @return void
+ */
+	public function edit() {
+	}
+
+/**
+ * delete
+ *
+ * @return void
+ */
+	public function delete() {
+	}
+}
+_EOF_
+
+
+controllerFile=${PUGLIN_PATH}/Controller/${PLUGIN_NAME}AppController.php
+appUsesValue=`grep "App::uses" ${controllerFile}`
+classValue=`grep "class .* {" ${controllerFile}`
+
+echo "create ${controllerFile}"
+cat << _EOF_ > $controllerFile
+<?php
+/**
+ * ${PLUGIN_NAME}App Controller
+ *
+ * @author Noriko Arai <arai@nii.ac.jp>
+ * @author ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
+ * @link http://www.netcommons.org NetCommons Project
+ * @license http://www.netcommons.org/license.txt NetCommons License
+ * @copyright Copyright 2014, NetCommons Project
+ */
+
+${appUsesValue}
+
+/**
+ * ${PLUGIN_NAME}App Controller
+ *
+ * @author ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
+ * @package ${PHPDOC_PROJECT}\\${PLUGIN_NAME}\\Controller
+ */
+${classValue}
+
+/**
+ * use component
+ *
+ * @var array
+ */
+	public \$components = array(
+		'Security'
+	);
+}
+_EOF_
