@@ -2,8 +2,15 @@
 if [ "$UID" -eq 0 ];then
   echo "Doing..."
 else
-  echo "Use \"sudo\""
-  #exit
+	echo "Use \"sudo\". Do you want to continue?"
+	echo -n "y(es)/n(o) [n]> "
+	read ANS
+	if [ "$ANS" = "" ]; then
+		ANS="n"
+	fi
+	if [ ! "$ANS" = "y" ]; then
+		exit
+	fi
 fi
 
 . /var/www/MyShell/install/nc3profile
