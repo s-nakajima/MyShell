@@ -4,15 +4,16 @@ cd /var/www/app/
 
 if [ "$1" = "--add-all-test" ] ; then
 	export ALL_TEST_SUITE=1; export ALL_TEST_SUITE
+	export PLUGIN_NAME=$2; export PLUGIN_NAME
+	export PLUGIN_TYPE=$3; export PLUGIN_TYPE
+	export TEST_FILE_NAME=$4; export TEST_FILE_NAME
+	export TEST_METHOD=$5; export TEST_METHOD
+else
+	export ALL_TEST_SUITE=0; export ALL_TEST_SUITE
 	export PLUGIN_NAME=$1; export PLUGIN_NAME
 	export PLUGIN_TYPE=$2; export PLUGIN_TYPE
 	export TEST_FILE_NAME=$3; export TEST_FILE_NAME
 	export TEST_METHOD=$4; export TEST_METHOD
-else
-	export ALL_TEST_SUITE=0; export ALL_TEST_SUITE
-	export PLUGIN_NAME=$2; export PLUGIN_NAME
-	export PLUGIN_TYPE=$3; export PLUGIN_TYPE
-	export TEST_FILE_NAME=$4; export TEST_FILE_NAME
 fi
 
 if [ "${PLUGIN_NAME}" = "" ]; then
