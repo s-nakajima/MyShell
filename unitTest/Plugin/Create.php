@@ -213,7 +213,7 @@ Class CreateObject {
 					'@codeCoverageIgnore'
 				)
 			) .
-			'class ' . $className . ' extends ' . $testCase . ' {' . chr(10) .
+			'abstract class ' . $className . ' extends ' . $testCase . ' {' . chr(10) .
 			'' . chr(10) .
 			$this->_classVariable(
 				'Fixtures',
