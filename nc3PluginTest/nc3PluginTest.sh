@@ -33,6 +33,16 @@ if [ "${PLUGIN_DIR}" = "" ]; then
 	PLUGIN_DIR="Plugin"; export PLUGIN_DIR
 fi
 
+PHPUNIT_VERSION="`phpunit --version`"
+check=`echo $PHPUNIT_VERSION | grep "^PHPUnit 3.7.38"`
+if [ ! "$check" = "" ]; then
+	PHPUNITCMD="$SCRIPT_DIR/bin/cake-unittest"
+	PARSE_CAVERAGE="${SCRIPT_DIR}/parse_caverage_tree_3.php"
+else
+	PHPUNITCMD="$TARGET_DIR/app/Console/cake"
+	PARSE_CAVERAGE="${SCRIPT_DIR}/parse_caverage_tree.php"
+fi
+
 RESULT_LOGFILE=$CURDIR/testResult.log
 if [ "${EXEC_SOURCE}" = "" -o ! -f $RESULT_LOGFILE ]; then
 	echo "" > ${RESULT_LOGFILE}
@@ -173,7 +183,7 @@ do
 			else
 				execCommand="${CMD_PHPCS} -p --extensions=php,ctp --standard=${STANDARD_PHPCS} app/$PLUGIN_DIR/${plugin}"
 			fi
-			
+
 			echo ${execCommand}
 			${execCommand}
 
@@ -290,7 +300,7 @@ do
 				echo "##################################"
 				echo "JavScript unit test Karma(jsunit)"
 				echo "##################################"
-				
+
 				if [ -f app/$PLUGIN_DIR/${plugin}/JavascriptTest/my.karma.conf.js ]; then
 					execCommand="/usr/lib/node_modules/karma/bin/karma start app/$PLUGIN_DIR/${plugin}/JavascriptTest/my.karma.conf.js --single-run --browsers PhantomJS"
 				else
@@ -315,7 +325,7 @@ do
 			else
 				CMD_PHPDOC=`which phpdoc`
 			fi
-			
+
 			echo ""
 			execCommand="rm -Rf app/webroot/phpdoc/${plugin}"
 			echo ${execCommand}
@@ -380,12 +390,12 @@ do
 					if [ "${CMDPARAM}" = "list" -o "${CMDPARAM}" = "list.caverageAll" ]; then
 						execCommand="$SCRIPT_DIR/bin/cake-unittest test ${plugin} ${execOption}"
 					elif [ ! "${CMDPARAM}" = "" -a ! "${CMDPARAM}" = "caverageAll" ]; then
-						execCommand="$SCRIPT_DIR/bin/cake-unittest test ${plugin} ${CMDPARAM} ${execOption}"
+						execCommand="$PHPUNITCMD test ${plugin} ${CMDPARAM} ${execOption}"
 					else
-						execCommand="$SCRIPT_DIR/bin/cake-unittest test ${plugin} All${plugin} ${execOption}"
+						execCommand="$PHPUNITCMD test ${plugin} All${plugin} ${execOption}"
 					fi
 				else
-					execCommand="$SCRIPT_DIR/bin/cake-unittest test ${plugin} All${plugin} ${execOption}"
+					execCommand="$PHPUNITCMD test ${plugin} All${plugin} ${execOption}"
 				fi
 				echo ${execCommand}
 				${execCommand}
@@ -421,11 +431,11 @@ do
 				#echo ""
 
 				if [ "${CMDPARAM}" = "caverageAll" -o "${CMDPARAM}" = "list.caverageAll" ]; then
-					echo "php ${SCRIPT_DIR}/parse_caverage.php ${plugin} 1"
-					php ${SCRIPT_DIR}/parse_caverage_tree.php ${plugin} 1
+					echo "php ${PARSE_CAVERAGE} ${plugin} 1"
+					php ${PARSE_CAVERAGE} ${plugin} 1
 				else
-					echo "php ${SCRIPT_DIR}/parse_caverage.php ${plugin} 0"
-					php ${SCRIPT_DIR}/parse_caverage_tree.php ${plugin} 0
+					echo "php ${PARSE_CAVERAGE} ${plugin} 0"
+					php ${PARSE_CAVERAGE} ${plugin} 0
 					#echo "php ${CURDIR}/parse_caverage.php ${plugin} Plugin_${plugin}.html 0"
 					#php ${CURDIR}/parse_caverage.php ${plugin} Plugin_${plugin}.html 0
 				fi
