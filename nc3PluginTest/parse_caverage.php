@@ -13,31 +13,13 @@ define('COVERAGE_DIR', TARGET_DIR . 'app/webroot/coverage/');
 //define('ROOTURL', 'http://html.local:9090/nc3/');
 define('ROOTURL', getenv('ROOTURL') . '/');
 
-if (! file_exists(COVERAGE_DIR . $plugin . '/' . $fileName)) {
-	if (! file_exists(COVERAGE_DIR . $plugin . '/' . getenv('PLUGIN_DIR') . '_' . $fileName)) {
-		if (! file_exists(COVERAGE_DIR . $plugin . '/' . 'app_' . $fileName)) {
-			if ($nest != 0) {
-				exit;
-			}
-			if (! file_exists(COVERAGE_DIR . $plugin . '/' . 'index.html')) {
-				exit;
-			} else {
-				$file = file_get_contents(COVERAGE_DIR . $plugin . '/' . 'index.html');
-				$fileName = 'index.html';
-			}
-		} else {
-			$file = file_get_contents(COVERAGE_DIR . $plugin . '/' . 'app_' . $fileName);
-			$fileName = 'app_' . $fileName;
-		}
-	} else {
-		$file = file_get_contents(COVERAGE_DIR . $plugin . '/' . 'Plugin_' . $fileName);
-		$fileName = getenv('PLUGIN_DIR') . '_' . $fileName;
-	}
+if (! file_exists(COVERAGE_DIR . $fileName)) {
+	exit;
 } else {
-	$file = file_get_contents(COVERAGE_DIR . $plugin . '/' . $fileName);
+	$file = file_get_contents(COVERAGE_DIR . $fileName);
 }
 if ($displayUrl) {
-	echo "\n" . ROOTURL . "coverage/${plugin}/${fileName}\n\n";
+	echo "\n" . ROOTURL . "coverage/${fileName}\n\n";
 }
 
 function html_truncate($html) {
@@ -46,14 +28,15 @@ function html_truncate($html) {
 	$html = preg_replace("/[ ]{2,}/ius", "", $html);
 
 	$html = preg_replace('/&nbsp;' . preg_quote('/', '/') . '&nbsp;/iu', '/', $html);
-	$html = preg_replace("/&nbsp;\n\n&nbsp;/iu", '-.--% (-/-)', $html);
+	$html = preg_replace("/" . preg_quote('n/a', '/') . "\n" . preg_quote('0/0', '/') . "/iu", 'n/a (0/0)', $html);
+	$html = preg_replace("/[0-9]+?\.[0-9][0-9]% covered \([a-z]+?\)/iu", '', $html);
 
 	$html = preg_replace('/&nbsp;/iu', '', $html);
 	$html = preg_replace("/\n+/ius", "\n", $html);
 
 	$html = preg_replace("/\n([0-9]+)" . preg_quote('/', '/') . "([0-9]+)/ius", " (\\1/\\2)", $html);
 	$html = preg_replace("/\n([0-9]+)/ius", "    \\1", $html);
-	$html = preg_replace("/\n-/ius", "    -", $html);
+	$html = preg_replace("/\nn\/a/ius", "    n/a", $html);
 
 	return trim($html);
 }

@@ -12,15 +12,11 @@ $fileCount = 0;
 
 function output_caverage($dirName, $indent, $displayUrl) {
 	global $plugin, $messages, $fileCount, $displayChildren;
-	
+
 	$dir = dir(PLUGIN_DIR . $dirName);
-	
+
 	$outputs = array();
-	if ($dirName === $plugin) {
-		$shellFileName = $dirName . '.html';
-	} else {
-		$shellFileName = strtr(substr($dirName, strlen($plugin) + 1), '/', '_') . '.html';
-	}
+	$shellFileName = $dirName . '/index.html';
 	if ($displayChildren || $dirName === $plugin) {
 		exec('php ' . __DIR__ . '/parse_caverage.php ' . $plugin . ' ' . $shellFileName . ' ' . $indent . ' ' . (int)$displayUrl, $outputs);
 		if ($outputs) {
@@ -34,14 +30,14 @@ function output_caverage($dirName, $indent, $displayUrl) {
 	}
 
 	while (false !== ($fileName = $dir->read())) {
-		if (! in_array($fileName, ['.', '..', '.git', 'Schema', 'Migration', 'Test', 'TestSuite'], true) && 
+		if (! in_array($fileName, ['.', '..', '.git', 'Schema', 'Migration', 'Test', 'TestSuite'], true) &&
 				! is_file(PLUGIN_DIR . $dirName . '/' . $fileName)) {
 
 			output_caverage($dirName . '/' . $fileName, $indent + 4, false);
 		}
-		if (in_array(substr($fileName, -3), ['ctp', 'php'], true) && 
+		if (in_array(substr($fileName, -3), ['ctp', 'php'], true) &&
 				is_file(PLUGIN_DIR . $dirName . '/' . $fileName)) {
-		
+
 			$fileCount++;
 		}
 	}
