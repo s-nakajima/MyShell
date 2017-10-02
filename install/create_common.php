@@ -16,22 +16,23 @@ if (isset($argv[3])) {
 	define('DBPREFIX', '');
 }
 
-$mysqli = new mysqli('localhost', 'root', 'root', $dbname);
-if ($mysqli->connect_errno) {
-	echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
-}
-$result = $mysqli->query('SET NAMES utf8;');
+$db = new PDO(
+    sprintf('%s:host=%s;port=%s;dbname=%s', 'mysql', 'localhost', '3306', getenv('DBNAME')),
+    getenv('DBUSER'),
+    getenv('DBPASS')
+);
+$result = $db->query('SET NAMES utf8;');
 
 
 /**
  * SQL実行
  */
 function executeSelect($table, $where = array()) {
-	global $mysqli;
+	global $db;
 
 	if ($where) {
 		$where = array_map(function ($key, $value) {
-			global $mysqli;
+			global $db;
 
 			if (substr($value, 0, 2) === '!=') {
 				$sign = '!=';
@@ -45,10 +46,10 @@ function executeSelect($table, $where = array()) {
 			}
 			
 			if ($value !== null) {
-				$value = $mysqli->real_escape_string($value);
+				$value = $db->quote($value);
 			}
 
-			return '`' . $key . '`' . ' ' . $sign . ' \'' . $mysqli->real_escape_string($value) . '\'';
+			return '`' . $key . '`' . ' ' . $sign . ' ' . $db->quote($value) . '';
 		}, array_keys($where), array_values($where));
 	} else {
 		$where = array('1 = 1');
@@ -57,10 +58,10 @@ function executeSelect($table, $where = array()) {
 	$sql = 'SELECT * FROM ' . DBPREFIX . $table .
 			' WHERE ' . implode(' AND ', $where);
 
-	$result = $mysqli->query($sql);
+	$result = $db->query($sql);
 
-	if ($mysqli->errno) {
-		echo('Error: ' . $mysqli->errno . chr(10) . $mysqli->error . chr(10));
+	if ($db->errorCode() !== '00000') {
+		echo('Error: ' . $db->errorCode() . chr(10) . print_r($db->errorInfo()) . chr(10));
 		echo($sql . chr(10));
 		die();
 	}
@@ -72,7 +73,7 @@ function executeSelect($table, $where = array()) {
  * SQL実行
  */
 function executeInsert($table, $params) {
-	global $mysqli;
+	global $db;
 
 	$params = array_merge($params, array(
 		'created_user' => '1',
@@ -82,19 +83,19 @@ function executeInsert($table, $params) {
 	));
 
 	$params = array_map(function ($value) {
-		global $mysqli;
-		return '\'' . $mysqli->real_escape_string($value) . '\'';
+		global $db;
+		return '' . $db->quote($value) . '';
 	}, $params);
 
 	$sql = 'INSERT INTO ' . DBPREFIX . $table . '(`' . implode('`, `', array_keys($params)) . '`)';
 	$sql .= ' VALUES (' . implode(', ', array_values($params)) . ')';
 
-	$result = $mysqli->query($sql);
+	$result = $db->query($sql);
 
-	if ($mysqli->errno) {
-		echo('Error: ' . $mysqli->errno . chr(10) . $mysqli->error . chr(10));
+	if ($db->errorCode() !== '00000') {
+		echo('Error: ' . $db->errorCode() . chr(10) . print_r($db->errorInfo()) . chr(10));
 		echo($sql . chr(10));
-		$mysqli->rollback();
+		$db->rollBack();
 		die();
 	}
 
@@ -105,7 +106,7 @@ function executeInsert($table, $params) {
  * SQL実行
  */
 function executeUpdate($table, $params, $where = array()) {
-	global $mysqli;
+	global $db;
 
 	$params = array_merge($params, array(
 		'modified_user' => '1',
@@ -113,17 +114,17 @@ function executeUpdate($table, $params, $where = array()) {
 	));
 
 	$params = array_map(function ($key, $value) {
-		global $mysqli;
+		global $db;
 		if (! isset($value)) {
 			return '`' . $key . '`' . ' = NULL';
 		} else {
-			return '`' . $key . '`' . ' = \'' . $mysqli->real_escape_string($value) . '\'';
+			return '`' . $key . '`' . ' = ' . $db->quote($value) . '';
 		}
 	}, array_keys($params), array_values($params));
 
 	if ($where) {
 		$where = array_map(function ($key, $value) {
-			global $mysqli;
+			global $db;
 			if (substr($value, 0, 2) === '!=') {
 				$sign = '!=';
 				$value = trim(substr($value, 2));
@@ -135,7 +136,7 @@ function executeUpdate($table, $params, $where = array()) {
 				$value = trim($value);
 			}
 
-			return '`' . $key . '`' . ' ' . $sign . ' \'' . $mysqli->real_escape_string($value) . '\'';
+			return '`' . $key . '`' . ' ' . $sign . ' ' . $db->quote($value) . '';
 		}, array_keys($where), array_values($where));
 	} else {
 		$where = array('1 = 1');
@@ -145,12 +146,12 @@ function executeUpdate($table, $params, $where = array()) {
 			' SET ' . implode(', ', $params) .
 			' WHERE ' . implode(' AND ', $where);
 
-	$result = $mysqli->query($sql);
+	$result = $db->query($sql);
 
-	if ($mysqli->errno) {
-		echo('Error: ' . $mysqli->errno . chr(10) . $mysqli->error . chr(10));
+	if ($db->errorCode() !== '00000') {
+		echo('Error: ' . $db->errorCode() . chr(10) . print_r($db->errorInfo()) . chr(10));
 		echo($sql . chr(10));
-		$mysqli->rollback();
+		$db->rollBack();
 		die();
 	}
 

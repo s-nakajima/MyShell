@@ -37,16 +37,19 @@ $where = array(
 	'is_deleted' => '0',
 );
 $result = executeSelect('frames', $where);
-$frame = $result->fetch_assoc();
-$result->free();
+foreach ($result as $row) {
+	$frame = $row;
+	break;
+}
+//$result->free();
 if (empty($frame)) {
 	echo 'Not empty.';
 	exit;
 }
 
 //トランザクション開始
-$mysqli->autocommit(false);
-$mysqli->begin_transaction();
+//$db->autocommit(false);
+$db->beginTransaction();
 
 /**
  * プラグインデータ取得
@@ -56,8 +59,11 @@ $where = array(
 	'language_id' => '2',
 );
 $result = executeSelect('plugins', $where);
-$plugin = $result->fetch_assoc();
-$result->free();
+foreach ($result as $row) {
+	$plugin = $row;
+	break;
+}
+//$result->free();
 
 $blockKey = md5('block_' . $pluginKey . time());
 
@@ -72,7 +78,7 @@ if (Inflector::underscore($pluginKey) !== 'calendars') {
 	);
 	executeInsert('blocks', $params);
 
-	$blockId = $mysqli->insert_id;
+	$blockId = $db->lastInsertId();
 
 	$params = array(
 		'language_id' => '2',
@@ -162,7 +168,7 @@ switch (Inflector::underscore($pluginKey)) {
 			'name' => 'Block - ' . $plugin['name'],
 		);
 		executeInsert('cabinets', $params);
-		$cabinetId = $mysqli->insert_id;
+		$cabinetId = $db->lastInsertId();
 		$params = array(
 			'use_workflow' => '1',
 		);
@@ -180,7 +186,7 @@ switch (Inflector::underscore($pluginKey)) {
 			'cabinet_file_tree_id' => '1',
 		);
 		executeInsert('cabinet_files', $params);
-		$cabinetFileId = $mysqli->insert_id;
+		$cabinetFileId = $db->lastInsertId();
 		$params = array(
 			'cabinet_key' => $cabinetKey,
 			'cabinet_file_key' => $cabinetFileKey,
@@ -281,9 +287,9 @@ switch (Inflector::underscore($pluginKey)) {
 		break;
 }
 
-$mysqli->commit();
+$db->commit();
 
 /* 結果セットを開放します */
-$mysqli->close();
+//$db->close();
 
 echo 'End ' . $pluginKey . chr(10);
