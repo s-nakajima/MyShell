@@ -391,7 +391,7 @@ COMMAND="${INSTALL_CMD}install_start --base-url=${NC3URI} --lang="
 echo ${COMMAND}
 ${COMMAND}
 
-COMMAND="${INSTALL_CMD}create_database --datasource= --host= --port= --database=nc3 --prefix= --login=root --password=root"
+COMMAND="${INSTALL_CMD}create_database --datasource= --host= --port= --database=${DBNAME} --prefix= --login=root --password=root"
 echo ${COMMAND}
 ${COMMAND}
 
