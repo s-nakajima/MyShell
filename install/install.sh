@@ -36,12 +36,12 @@ fi
 #	exit
 #fi
 
-if [ ! "`cat /etc/lsb-release`" = "" ]; then
-	NC3URI=http://127.0.0.1:9090; export NC3URI
-elif [ ! "`cat /etc/redhat-release`" = "" ]; then
-	NC3URI=http://127.0.0.1:9094; export NC3URI
-else
-	NC3URI=http://127.0.0.1:9090; export NC3URI
+if [ "${NC3URI}" = "http://127.0.0.1:9090" ]; then
+	if [ ! "`cat /etc/lsb-release`" = "" ]; then
+		NC3URI=http://127.0.0.1:9090; export NC3URI
+	elif [ ! "`cat /etc/redhat-release`" = "" ]; then
+		NC3URI=http://127.0.0.1:9094; export NC3URI
+	fi
 fi
 
 if [ "$2" = "docs" ]; then
@@ -216,8 +216,8 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 		git clone ${GITURL}/NetCommons3Docs.git docs
 	fi
 
-	echo "cp -apf ${CURDIR}/NetCommons3/. app/"
-	cp -apf ${CURDIR}/NetCommons3/. app/
+	echo "cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/"
+	cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/
 
 	if [ -f ${BKDIR}/app/Vagrantfile ]; then
 		echo "cp -pf ${BKDIR}/app/Vagrantfile app/"
@@ -391,7 +391,7 @@ COMMAND="${INSTALL_CMD}install_start --base-url=${NC3URI} --lang="
 echo ${COMMAND}
 ${COMMAND}
 
-COMMAND="${INSTALL_CMD}create_database --datasource= --host= --port= --database=nc3 --prefix= --login=root --password=root"
+COMMAND="${INSTALL_CMD}create_database --datasource= --host= --port= --database=${DBNAME} --prefix= --login=root --password=root"
 echo ${COMMAND}
 ${COMMAND}
 
