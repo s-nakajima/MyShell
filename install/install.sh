@@ -216,8 +216,8 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 		git clone ${GITURL}/NetCommons3Docs.git docs
 	fi
 
-	echo "cp -apf ${CURDIR}/NetCommons3/. app/"
-	cp -apf ${CURDIR}/NetCommons3/. app/
+	echo "cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/"
+	cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/
 
 	if [ -f ${BKDIR}/app/Vagrantfile ]; then
 		echo "cp -pf ${BKDIR}/app/Vagrantfile app/"
