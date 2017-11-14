@@ -36,12 +36,12 @@ fi
 #	exit
 #fi
 
-if [ ! "`cat /etc/lsb-release`" = "" ]; then
-	NC3URI=http://127.0.0.1:9090; export NC3URI
-elif [ ! "`cat /etc/redhat-release`" = "" ]; then
-	NC3URI=http://127.0.0.1:9094; export NC3URI
-else
-	NC3URI=http://127.0.0.1:9090; export NC3URI
+if [ "${NC3URI}" = "http://127.0.0.1:9090" ]; then
+	if [ ! "`cat /etc/lsb-release`" = "" ]; then
+		NC3URI=http://127.0.0.1:9090; export NC3URI
+	elif [ ! "`cat /etc/redhat-release`" = "" ]; then
+		NC3URI=http://127.0.0.1:9094; export NC3URI
+	fi
 fi
 
 if [ "$2" = "docs" ]; then
