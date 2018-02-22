@@ -19,7 +19,7 @@ GROUP=`ls -ld $TARGET_DIR | awk '{ print $4 '}`
 
 cd $TARGET_DIR
 #cd /var/www/NetCommons3/
-export PATH=/var/www/app/vendors/bin:$PATH
+export PATH=${TARGET_DIR}/vendors/bin:$PATH
 
 PLUGIN_NAME=$1
 CHECKEXEC=$2
@@ -110,7 +110,7 @@ if [ "${PLUGIN_NAME}" = "pear_install" ]; then
 	exit 0
 fi
 
-BINDIR=/var/www/app/vendors/bin
+BINDIR=${TARGET_DIR}/vendors/bin
 
 if [ "${PLUGIN_NAME}" = "All.Plugin" ]; then
 	PLUGIN_NAME=`ls app/$PLUGIN_DIR`
@@ -174,9 +174,9 @@ do
 			#else
 				CMD_PHPCS=`which phpcs`
 			#fi
-			STANDARD_PHPCS="/var/www/app/vendors/cakephp/cakephp-codesniffer/CakePHP"
-			if [ -d "/var/www/app/tools/build/app/phpcs/NetCommons" ]; then
-				STANDARD_PHPCS="${STANDARD_PHPCS},/var/www/app/tools/build/app/phpcs/NetCommons"
+			STANDARD_PHPCS="${TARGET_DIR}/vendors/cakephp/cakephp-codesniffer/CakePHP"
+			if [ -d "${TARGET_DIR}/tools/build/app/phpcs/NetCommons" ]; then
+				STANDARD_PHPCS="${STANDARD_PHPCS},${TARGET_DIR}/tools/build/app/phpcs/NetCommons"
 			fi
 			if [ "${plugin}" = "NetCommons3" ]; then
 				execCommand="${CMD_PHPCS} -p --extensions=php,ctp --standard=${STANDARD_PHPCS} app"
