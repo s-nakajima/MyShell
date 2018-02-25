@@ -19,7 +19,7 @@ GROUP=`ls -ld $TARGET_DIR | awk '{ print $4 '}`
 
 cd $TARGET_DIR
 #cd /var/www/NetCommons3/
-export PATH=${TARGET_DIR}/vendors/bin:$PATH
+export PATH=/var/www/app/vendors/bin:${TARGET_DIR}/vendors/bin:$PATH
 
 PLUGIN_NAME=$1
 CHECKEXEC=$2
@@ -174,7 +174,11 @@ do
 			#else
 				CMD_PHPCS=`which phpcs`
 			#fi
-			STANDARD_PHPCS="${TARGET_DIR}/vendors/cakephp/cakephp-codesniffer/CakePHP"
+			if [ -d ${TARGET_DIR}/vendors/cakephp/cakephp-codesniffer/CakePHP ]; then
+			    STANDARD_PHPCS="${TARGET_DIR}/vendors/cakephp/cakephp-codesniffer/CakePHP"
+			else
+			    STANDARD_PHPCS="/var/www/app/vendors/cakephp/cakephp-codesniffer/CakePHP"
+			fi
 			if [ -d "${TARGET_DIR}/tools/build/app/phpcs/NetCommons" ]; then
 				STANDARD_PHPCS="${STANDARD_PHPCS},${TARGET_DIR}/tools/build/app/phpcs/NetCommons"
 			fi
