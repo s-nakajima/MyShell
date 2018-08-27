@@ -385,9 +385,9 @@ do
 					echo ${execCommand}
 					${execCommand}
 
-					execOption="--coverage-html app/webroot/coverage/${plugin} --stderr --configuration ${plugin}-phpunit.xml.dist"
+					execOption="--coverage-html app/webroot/coverage/${plugin} --configuration ${plugin}-phpunit.xml.dist"
 				else
-					execOption="--coverage-html app/webroot/coverage/${plugin} --stderr"
+					execOption="--coverage-html app/webroot/coverage/${plugin}"
 				fi
 
 				if [ "${CHECKEXEC}" = "phpunit" ]; then
