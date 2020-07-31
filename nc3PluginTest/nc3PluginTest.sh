@@ -3,13 +3,15 @@ CURDIR=`pwd`
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
 if [ "$TARGET_DIR" = "" ]; then
-	TARGET_DIR=/var/www/app; export TARGET_DIR
+	#TARGET_DIR=/var/www/app; export TARGET_DIR
 	#TARGET_DIR=/var/www/html/nc3; export TARGET_DIR
+	TARGET_DIR=/var/www/html/edumap2_dev; export TARGET_DIR
 fi
 
 if [ "$ROOTURL" = "" ]; then
-	ROOTURL=http://127.0.0.1:9090; export ROOTURL
+	#ROOTURL=http://127.0.0.1:9090; export ROOTURL
 	#ROOTURL=http://html.local:9090/nc3; export ROOTURL
+	ROOTURL=http://html.local:9097/edumap2_dev; export ROOTURL
 fi
 
 OWNER=`ls -ld $TARGET_DIR | awk '{ print $3 '}`
@@ -204,7 +206,9 @@ do
 			echo "##################################"
 			echo "PHP Mess Detector(phpmd)"
 			echo "##################################"
-			if [ -f ${BINDIR}/phpmd ]; then
+			if [ -f /var/www/MyShell/vendor/bin/phpmd ]; then
+				CMD_PHPMD=/var/www/MyShell/vendor/bin/phpmd
+			elif [ -f ${BINDIR}/phpmd ]; then
 				CMD_PHPMD=${BINDIR}/phpmd
 			else
 				CMD_PHPMD=`which phpmd`
