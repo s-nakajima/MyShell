@@ -3,8 +3,9 @@ if [ "$UID" -eq 0 ];then
   echo "Doing..."
 else
 	echo "Use \"sudo\". Do you want to continue?"
-	echo -n "y(es)/n(o) [n]> "
-	read ANS
+	echo -n "y(es)/n(o) [n]> y"
+	# read ANS
+	ANS="y"
 	if [ "$ANS" = "" ]; then
 		ANS="n"
 	fi
