@@ -1,7 +1,6 @@
 # テストシェル
 
 ## nc3PluginTest
-（小まめに最新を取得してね）
 
 <pre>
 cd /var/www/MyShell/nc3PluginTest
@@ -35,6 +34,7 @@ bash nc3PluginTest.sh プラグイン名(キャメル記法)
 | phpdoc             | PHP Mess Detector       |
 | phpmd              | PHP Documentor(phpdoc)  |
 
+環境構築直後は、`pear_install`を実施してください。
 
 ### ≪第三引数(all)≫
 
