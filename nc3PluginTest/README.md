@@ -32,7 +32,6 @@ bash nc3PluginTest.sh pear_install
 | パラメータ         | 説明                    |
 | ------------------ | ----------------------- |
 | remove             | 改行コードをLFに変換    |
-| pear_install       | Pear等に関する最新化    |
 | all                | 下記の全てのテスト実施  |
 | phpcs              | PHP CodeSniffer         |
 | phpmd              | PHP Mess Detector       |
