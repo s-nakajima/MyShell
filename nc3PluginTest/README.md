@@ -7,6 +7,14 @@ cd /var/www/MyShell/nc3PluginTest
 bash nc3PluginTest.sh プラグイン名(キャメル記法)
 </pre>
 
+※環境構築直後は、下記の`pear_install`を実施してください。
+
+<pre>
+cd /var/www/MyShell/nc3PluginTest
+bash nc3PluginTest.sh NetCommons pear_install
+</pre>
+
+
 ### ≪第一引数≫
 
 プラグイン名(キャメル記法)
@@ -33,8 +41,6 @@ bash nc3PluginTest.sh プラグイン名(キャメル記法)
 | phpunit            | PHP UnitTest            |
 | phpdoc             | PHP Mess Detector       |
 | phpmd              | PHP Documentor(phpdoc)  |
-
-環境構築直後は、`pear_install`を実施してください。
 
 ### ≪第三引数(all)≫
 
