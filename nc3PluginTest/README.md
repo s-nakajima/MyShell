@@ -11,7 +11,7 @@ bash nc3PluginTest.sh プラグイン名(キャメル記法)
 
 <pre>
 cd /var/www/MyShell/nc3PluginTest
-bash nc3PluginTest.sh NetCommons pear_install
+bash nc3PluginTest.sh pear_install
 </pre>
 
 
