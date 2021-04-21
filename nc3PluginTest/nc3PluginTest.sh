@@ -91,38 +91,6 @@ if [ "${PLUGIN_NAME}" = "pear_install" ]; then
 		${execCommand}
 	fi
 
-	execCommand="pear install --force --alldeps PHP_CodeSniffer-1.5.4"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear channel-discover pear.cakephp.org"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear install --force --alldeps cakephp/CakePHP_CodeSniffer"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear channel-discover pear.phpmd.org"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear install --force --alldeps phpmd/PHP_PMD"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear channel-discover pear.pdepend.org"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear install --force --alldeps pdepend/PHP_Depend"
-	echo ${execCommand}
-	${execCommand}
-
-	execCommand="pear list -a"
-	echo ${execCommand}
-	${execCommand}
-
 	exit 0
 fi
 
