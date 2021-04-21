@@ -58,12 +58,26 @@ fi
 
 if [ "${PLUGIN_NAME}" = "pear_install" ]; then
 	#Javascript checker install
+	if type "pip" > /dev/null 2>&1; then
+		cmdpip=`which pip`
+	fi
+	if [ "$cmdpip" = "" ]; then
+		if type "pip2" > /dev/null 2>&1; then
+			cmdpip=`which pip2`
+		fi
+	fi
+	if [ "$cmdpip" = "" ]; then
+		if type "pip3" > /dev/null 2>&1; then
+			cmdpip=`which pip3`
+		fi
+	fi
+
 	checkIns=`which gjslint`
 	if [ $? -eq 1 ]; then
 		#echo "pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz"
 		#pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-		echo "pip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz"
-		pip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz
+		echo "$cmdpip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz"
+		$cmdpip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz
 	fi
 
 	checkIns=`phpdoc --version`
