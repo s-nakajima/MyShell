@@ -76,8 +76,8 @@ if [ "${PLUGIN_NAME}" = "pear_install" ]; then
 	if [ $? -eq 1 ]; then
 		#echo "pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz"
 		#pip install http://closure-linter.googlecode.com/files/closure_linter-latest.tar.gz
-		echo "$cmdpip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz"
-		$cmdpip install https://github.com/google/closure-linter/archive/v2.3.19.tar.gz
+		echo "$cmdpip install https://github.com/NetCommons3/NetCommons3/raw/master/tools/build/plugins/cakephp/travis/v2.3.19.tar.gz"
+		$cmdpip install https://github.com/NetCommons3/NetCommons3/raw/master/tools/build/plugins/cakephp/travis/v2.3.19.tar.gz
 	fi
 
 	checkIns=`phpdoc --version`
