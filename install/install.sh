@@ -201,13 +201,13 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 		git clone ${GITURL}/NetCommons3.git
 	#fi
 
-	if [ "${NORMALDEV}" = "2" -o "${NORMALDEV}" = "0" ]; then
-		echo "rm -Rf ${CURDIR}/Themed"
-		rm -Rf ${CURDIR}/Themed
-
-		echo "git clone https://github.com/s-nakajima/Themed.git"
-		git clone https://github.com/s-nakajima/Themed.git
-	fi
+	#if [ "${NORMALDEV}" = "2" -o "${NORMALDEV}" = "0" ]; then
+	#	echo "rm -Rf ${CURDIR}/Themed"
+	#	rm -Rf ${CURDIR}/Themed
+	#
+	#	echo "git clone https://github.com/s-nakajima/Themed.git"
+	#	git clone https://github.com/s-nakajima/Themed.git
+	#fi
 
 	echo "cd /var/www/"
 	cd /var/www/
@@ -254,16 +254,16 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 	echo "git config --global url.'https://'.insteadOf git://"
 	git config --global url."https://".insteadOf git://
 
-	if [ -f ${BKDIR}/app/composer.phar ]; then
-		echo "cp ${BKDIR}/app/composer.phar ${NC3DIR}/"
-		cp ${BKDIR}/app/composer.phar ${NC3DIR}/
-
-		echo "${CMDCMPOSER} self-update"
-		${CMDCMPOSER} self-update
-	else
-		echo "curl -s http://getcomposer.org/installer | php"
-		curl -s http://getcomposer.org/installer | php
-	fi
+	#if [ -f ${BKDIR}/app/composer.phar ]; then
+	#	echo "cp ${BKDIR}/app/composer.phar ${NC3DIR}/"
+	#	cp ${BKDIR}/app/composer.phar ${NC3DIR}/
+	#
+	#	echo "${CMDCMPOSER} self-update"
+	#	${CMDCMPOSER} self-update
+	#else
+	#	echo "curl -s http://getcomposer.org/installer | php"
+	#	curl -s http://getcomposer.org/installer | php
+	#fi
 
 	echo "rm -f composer.lock"
 	rm -f composer.lock
@@ -271,8 +271,8 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 	echo "cp -f bower.json.dist bower.json"
 	cp -f bower.json.dist bower.json
 
-	echo "${CMDCMPOSER} self-update"
-	${CMDCMPOSER} self-update
+	#echo "${CMDCMPOSER} self-update"
+	#${CMDCMPOSER} self-update
 
 	echo "${CMDCMPOSER} config minimum-stability dev"
 	${CMDCMPOSER} config minimum-stability dev
@@ -296,73 +296,6 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 		echo ${COMMAND}
 		${COMMAND}
 	fi
-
-	GITURL=https://github.com/NetCommons3; export GITURL
-
-	COMMAND="cd ${CURDIR}"
-	echo ${COMMAND}
-	${COMMAND}
-
-	COMMAND="`which curl` -O https://raw.githubusercontent.com/s-nakajima/MyShell/master/.nc3plugins"
-	echo ${COMMAND}
-	${COMMAND}
-
-	. ${CURDIR}/.nc3plugins
-
-	echo "cd ${NC3DIR}/"
-	cd ${NC3DIR}/
-
-	#echo "bower --allow-root update"
-	#bower --allow-root update
-fi
-
-######################
-# Githubから最新取得 #
-######################
-if [ ! "${NORMALDEV}" = "4" ]; then
-	for sPlugin in "${NC3PLUGINS[@]}"
-	do
-		if [ "${NORMALDEV}" = "1" ]; then
-			continue
-		fi
-
-		aPlugin=(${sPlugin})
-		echo "==== ${aPlugin[0]} ===="
-
-		COMMAND="cd ${NC3DIR}/app/Plugin"
-		echo ${COMMAND}
-		${COMMAND}
-
-		COMMAND="rm -Rf ${aPlugin[0]}"
-		echo ${COMMAND}
-		${COMMAND}
-
-		if [ "${aPlugin[1]}" = "DELETE" ]; then
-			continue
-		fi
-
-		case "${aPlugin[0]}" in
-			"empty" ) continue ;;
-			"BoostCake" ) continue ;;
-			"DebugKit" ) continue ;;
-			"HtmlPurifier" ) continue ;;
-			#"M17n" ) continue ;;
-			"Migrations" ) continue ;;
-			"MobileDetect" ) continue ;;
-			"Sandbox" ) continue ;;
-			"TinyMCE" ) continue ;;
-			* )
-			#NetCommons3プロジェクトから最新取得
-			if [ "${aPlugin[2]}" = "" ]; then
-				COMMAND="`which git` clone ${aPlugin[1]}/${aPlugin[0]}.git"
-			else
-				COMMAND="`which git` clone -b ${aPlugin[2]} ${aPlugin[1]}/${aPlugin[0]}.git"
-			fi
-		esac
-
-		echo ${COMMAND}
-		${COMMAND}
-	done
 fi
 
 ################
