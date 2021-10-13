@@ -41,7 +41,7 @@ if [ "${NC3URI}" = "http://127.0.0.1:9090" ]; then
 	if [ ! "`cat /etc/lsb-release`" = "" ]; then
 		NC3URI=http://127.0.0.1:9090; export NC3URI
 	elif [ ! "`cat /etc/redhat-release`" = "" ]; then
-		NC3URI=http://127.0.0.1:9094; export NC3URI
+		NC3URI=http://10.0.0.14; export NC3URI
 	fi
 fi
 
@@ -181,41 +181,14 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 	echo "rm -Rf ${CURDIR}/NetCommons3"
 	rm -Rf ${CURDIR}/NetCommons3
 
-	#if [ -d ${BKDIR}/app/nbproject ]; then
-	#	echo "cp -Rpf ${BKDIR}/app/nbproject ${NC3DIR}/"
-	#	cp -Rpf ${BKDIR}/app/nbproject ${NC3DIR}/
-	#fi
-	#if [ -d ${BKDIR}/app/cache ]; then
-	#	echo "cp -Rpf ${BKDIR}/app/cache ${NC3DIR}/"
-	#	cp -Rpf ${BKDIR}/app/cache ${NC3DIR}/
-	#fi
-
 	echo "cd ${CURDIR}"
 	cd ${CURDIR}
 
-	#if [ "${NORMALDEV}" = "2" -o "${NORMALDEV}" = "0" ]; then
-	#	echo "git clone https://github.com/s-nakajima/NetCommons3.git"
-	#	git clone https://github.com/s-nakajima/NetCommons3.git
-	#else
-		echo "git clone ${GITURL}/NetCommons3.git"
-		git clone ${GITURL}/NetCommons3.git
-	#fi
-
-	#if [ "${NORMALDEV}" = "2" -o "${NORMALDEV}" = "0" ]; then
-	#	echo "rm -Rf ${CURDIR}/Themed"
-	#	rm -Rf ${CURDIR}/Themed
-	#
-	#	echo "git clone https://github.com/s-nakajima/Themed.git"
-	#	git clone https://github.com/s-nakajima/Themed.git
-	#fi
+	echo "git clone ${GITURL}/NetCommons3.git"
+	git clone ${GITURL}/NetCommons3.git
 
 	echo "cd /var/www/"
 	cd /var/www/
-
-	if [ ! "${SKIPDOCS}" = "1" ]; then
-		echo "git clone ${GITURL}/NetCommons3Docs.git docs"
-		git clone ${GITURL}/NetCommons3Docs.git docs
-	fi
 
 	echo "cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/"
 	cp -apf ${CURDIR}/NetCommons3/. ${NC3DIR}/
@@ -223,26 +196,6 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 	if [ -f ${BKDIR}/app/Vagrantfile ]; then
 		echo "cp -pf ${BKDIR}/app/Vagrantfile app/"
 		cp -pf ${BKDIR}/app/Vagrantfile app/
-	fi
-
-	if [ ! "${SKIPDOCS}" = "1" ]; then
-		echo "mv NetCommons3Docs docs"
-		mv NetCommons3Docs docs
-	fi
-
-	if [ "${NORMALDEV}" = "2" -o "${NORMALDEV}" = "0" ]; then
-		if [ "$1" = "develop2" ]; then
-			echo "cp -Rf ${CURDIR}/Themed/* app/app/View/Themed/"
-			cp -Rf ${CURDIR}/Themed/* app/app/View/Themed/
-		else
-			for theme in `ls ${CURDIR}/Themed/`
-			do
-				if [ ! "${theme}" = "README.md" ]; then
-					echo "ln -s ${CURDIR}/Themed/${theme} app/app/View/Themed/${theme}"
-					ln -s ${CURDIR}/Themed/${theme} app/app/View/Themed/${theme}
-				fi
-			done
-		fi
 	fi
 
 	echo "chown ${OWNER}:${GROUP} -R app"
@@ -289,13 +242,6 @@ if [ ! "${NORMALDEV}" = "4" ]; then
 		echo "${CMDCMPOSER} install"
 		${CMDCMPOSER} install
 	#fi
-
-	#Githubから最新取得
-	if [ -f ${CURDIR}/.nc3plugins ]; then
-		COMMAND="rm -f ${CURDIR}/.nc3plugins"
-		echo ${COMMAND}
-		${COMMAND}
-	fi
 fi
 
 ################
