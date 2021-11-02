@@ -38,8 +38,7 @@ bash nc3PluginTest.sh pear_install
 | phpcpd             | PHP Copy/Paste Detector |
 | gjslint            | JavaScript Style Check  |
 | phpunit            | PHP UnitTest            |
-| phpdoc             | PHP Mess Detector       |
-| phpmd              | PHP Documentor(phpdoc)  |
+| phpdoc             | PHP Documentor(phpdoc)  |
 
 ### ≪第三引数(all)≫
 
