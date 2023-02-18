@@ -91,3 +91,45 @@ Announcements Test Cases:
 What test case would you like to run?  
 [q] > 
 </pre>
+
+（テストファイルを指定する例）
+<pre>
+# cd /var/www/MyShell/nc3PluginTest
+# bash nc3PluginTest.sh Announcements phpunit "Controller/AnnouncementsController/View"
+
+Welcome to CakePHP v2.6.5 Console
+---------------------------------------------------------------
+App : app
+Path: /var/www/app/app/
+---------------------------------------------------------------
+CakePHP Test Shell
+---------------------------------------------------------------
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+.............                                                     13 / 13 (100%)
+
+Time: 14.92 seconds, Memory: 34.00MB
+
+OK (13 tests, 15 assertions)
+</pre>
+
+（テストファイルでテストを限定する例）
+<pre>
+# cd /var/www/MyShell/nc3PluginTest
+# bash nc3PluginTest.sh Announcements phpunit "Controller/AnnouncementsController/View --filter testViewJson"
+
+Welcome to CakePHP v2.6.5 Console
+---------------------------------------------------------------
+App : app
+Path: /var/www/app/app/
+---------------------------------------------------------------
+CakePHP Test Shell
+---------------------------------------------------------------
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 1.56 seconds, Memory: 28.00MB
+
+OK (1 test, 3 assertions)
+</pre>
