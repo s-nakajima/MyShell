@@ -3,14 +3,14 @@ CURDIR=`pwd`
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 
 if [ "$TARGET_DIR" = "" ]; then
-	TARGET_DIR=/var/www/app; export TARGET_DIR
-	#TARGET_DIR=/var/www/html/nc3; export TARGET_DIR
+	#TARGET_DIR=/var/www/app; export TARGET_DIR
+	TARGET_DIR=/var/www/NetCommons3/app; export TARGET_DIR
 	#TARGET_DIR=/var/www/html/edumap2_dev; export TARGET_DIR
 fi
 
 if [ "$ROOTURL" = "" ]; then
-	ROOTURL=http://127.0.0.1:9094; export ROOTURL
-	#ROOTURL=http://html.local:9090/nc3; export ROOTURL
+	#ROOTURL=http://127.0.0.1:9094; export ROOTURL
+	ROOTURL=http://nc3.local:9096/app export ROOTURL
 	#ROOTURL=http://html.local:9097/edumap2_dev; export ROOTURL
 fi
 
@@ -388,7 +388,7 @@ do
 					execCommand="$PHPUNITCMD test ${plugin} All${plugin} ${execOption}"
 				fi
 				echo ${execCommand}
-				${execCommand}
+				NC3_LOCAL_TEST=1 ${execCommand}
 
 				result=$?
 				if [ $result -eq 0 ]; then
